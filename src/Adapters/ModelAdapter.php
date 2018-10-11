@@ -4,9 +4,8 @@ namespace DataTables\Adapters;
 
 class ModelAdapter extends \DataTables\DataTable
 {
-    private $criteria;
-
-    public function __construct($model, $params = null)
+    
+    public function __construct($model)
     {
         parent::__construct();
 
