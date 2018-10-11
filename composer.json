@@ -1,5 +1,5 @@
 {
-    "name": "Gazlab/phalcon-datatables",
+    "name": "gazlab/phalcon-datatables",
     "type": "library",
     "description": "DataTables for PhalconPHP",
     "keywords": ["phalcon", "datatables", "plugin", "gazlab"],
