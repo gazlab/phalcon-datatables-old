@@ -12,7 +12,9 @@ class ModelAdapter extends \DataTables\DataTable
 
         $builder = is_string($model) ? $model::query() : $model;
         
-        $this->total = count($builder->execute());
+        $model = $builder->getModelName(); 
+
+        $this->total = $model::count($builder->getParams());
         
         if (empty($this->search['value']))
         {
@@ -20,14 +22,14 @@ class ModelAdapter extends \DataTables\DataTable
                 if (!empty($column['search']['value'])){
                     $builder->andWhere($column['data'] . " LIKE '%" . $column['search']['value'] . "%'");
                 }
-            }
+            }  
         } else {
             foreach ($this->columns as $column){
                 $builder->orWhere($column['data'] . " LIKE '%" . $this->search['value'] . "%'");
             }
         }
         
-        $this->filtered = count($builder->execute());
+        $this->filtered = $model::count($builder->getParams());
 
         $builder->limit($this->limit, $this->offset);
         $builder->orderBy($this->columns[$this->order[0]['column']]['data'] . ' ' . $this->order[0]['dir']);
