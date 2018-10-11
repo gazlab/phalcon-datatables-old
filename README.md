@@ -54,7 +54,7 @@ class IndexController extends ControllerBase
 
 ### Installing
 
-### Composer (recomended)
+### Composer (recommended)
 
 ```
 composer require gazlab/phalcon-datatables
