@@ -6,47 +6,34 @@ use Phalcon\Mvc\Model\Criteria;
 
 class ModelAdapter extends \DataTables\DataTable
 {
-    private $model;
-    private $params;
+    private $criteria;
 
-    private function search()
-    {
-        if (empty($this->search['value']))
-        {
-            foreach ($this->columns as $column){
-                $criteria[$column['data']] = $column['search']['value'];
-            }
-
-            $query = Criteria::fromInput($this->di, $this->model, $criteria);
-            $this->params = array_replace_recursive($this->params, (is_array($query->getParams()) ? $query->getParams() : []));
-        } else {
-            
-        }
-    }
-
-    public function __construct($model, $params = [])
+    public function __construct($model, $criteria = null)
     {
         parent::__construct();
 
-        $this->model = $model;
-        $this->params = $params;
+        $this->criteria = !is_null($criteria) ? $criteria : new Criteria();
+        $this->criteria->setModelName($model);
 
-        $this->total = $model::count($this->params);
+        $this->total = $model::count($this->criteria->getParams());
         
-        $this->search();
-
-        $this->filtered = $model::count($this->params);
-
-        foreach($this->order as $order)
+        if (empty($this->search['value']))
         {
-            $orders[] = $this->columns[$order['column']]['data'] . ' ' . $order['dir'];
+            foreach ($this->columns as $column){
+                if (!empty($column['search']['value'])){
+                    $this->criteria->andWhere($column['search']['data'] . " LIKE '%" . $column['search']['value'] . "%'");
+                }
+            }
+        } else {
+            foreach ($this->columns as $column){
+                $this->criteria->orWhere($column['search']['data'] . " LIKE '%" . $this->search['value'] . "%'");
+            }
         }
 
-        $this->params = array_replace_recursive($this->params, [
-            'limit' => $this->limit,
-            'offset' => $this->offset,
-            'order' => join(', ', $orders)
-        ]);
+        $this->filtered = $model::count($this->criteria->getParams());
+
+        $this->criteria->limit($this->limit, $this->offset);
+        $this->criteria->orderBy($this->order[0]['column'], $this->order[0]['dir']);
 
         $this->records = $model::find($this->params);
     }
