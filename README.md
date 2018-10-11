@@ -4,9 +4,9 @@ A library for use DataTables in PhalconPHP project.
 
 ## Getting Started
 
-## Model Adapter
+### Model Adapter
 
-### View
+#### View
 
 ```
 <table id="model" class="display" style="width:100%">
@@ -36,7 +36,7 @@ A library for use DataTables in PhalconPHP project.
 </script>
 ```
 
-### Controller
+#### Controller
 ```
 use DataTables\DataTable;
 
@@ -54,7 +54,7 @@ class IndexController extends ControllerBase
 
 ### Installing
 
-### Composer (recommended)
+#### Composer (recommended)
 
 ```
 composer require gazlab/phalcon-datatables
