@@ -1,15 +1,15 @@
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/s0ny)
+
 # Phalcon DataTables
 
 A library for use DataTables in PhalconPHP project.
 
 ## Getting Started
 
-### Model Adapter
-
-#### View
+### View
 
 ```
-<table id="model" class="display" style="width:100%">
+<table id="example" class="display" style="width:100%">
     <thead>
         <tr>
             <th>ID</th>
@@ -20,7 +20,7 @@ A library for use DataTables in PhalconPHP project.
 </table>
 
 <script type="text/javascript">
-    $('#model').DataTable({
+    $('#example').DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": {
@@ -36,13 +36,14 @@ A library for use DataTables in PhalconPHP project.
 </script>
 ```
 
-#### Controller
+### Controller
 ```
 use DataTables\DataTable;
 
 class IndexController extends ControllerBase
 {
 
+    /* Model Adapter */
     public function modelAction()
     {
         if ($this->request->isAjax()){
@@ -60,7 +61,7 @@ class IndexController extends ControllerBase
 composer require gazlab/phalcon-datatables
 ```
 
-On app/config/loader.php project
+On your project, app/config/loader.php
 
 ```
 $loader = new \Phalcon\Loader();
