@@ -2,8 +2,9 @@
     "name": "gazlab/phalcon-datatables",
     "type": "library",
     "description": "DataTables for PhalconPHP",
-    "keywords": ["phalcon", "datatables", "plugin", "gazlab"],
+    "keywords": ["phalcon", "datatables", "plugin", "gazlab", "library"],
     "homepage": "https://github.com/Gazlab/phalcon-datatables",
+    "license": "MIT",
     "authors": [{
         "name": "Sony Kusyana",
         "email": "sony.kusyana@yahoo.com",
