@@ -19,6 +19,9 @@ class ModelAdapter extends \DataTables\DataTable
         {
             foreach ($this->columns as $column){
                 if (!strpos($column['data'], '.')){
+                    if (isset($column['searchable']) && $column['searchable']  === 'false') {
+                        continue;
+                    }
                     if (!empty($column['search']['value'])){
                         $builder->andWhere($column['data'] . " LIKE '%" . $column['search']['value'] . "%'");
                     }
@@ -27,6 +30,9 @@ class ModelAdapter extends \DataTables\DataTable
         } else {
             foreach ($this->columns as $column){
                 if (!strpos($column['data'], '.')){
+                    if (isset($column['searchable']) && $column['searchable']  === 'false') {
+                        continue;
+                    }
                     $builder->orWhere($column['data'] . " LIKE '%" . $this->search['value'] . "%'");
                 }
             }
