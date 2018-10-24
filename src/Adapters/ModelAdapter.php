@@ -18,13 +18,17 @@ class ModelAdapter extends \DataTables\DataTable
         if (empty($this->search['value']))
         {
             foreach ($this->columns as $column){
-                if (!empty($column['search']['value'])){
-                    $builder->andWhere($column['data'] . " LIKE '%" . $column['search']['value'] . "%'");
+                if (!strpos($column['data'], '.')){
+                    if (!empty($column['search']['value'])){
+                        $builder->andWhere($column['data'] . " LIKE '%" . $column['search']['value'] . "%'");
+                    }
                 }
             }  
         } else {
             foreach ($this->columns as $column){
-                $builder->orWhere($column['data'] . " LIKE '%" . $this->search['value'] . "%'");
+                if (!strpos($column['data'], '.')){
+                    $builder->orWhere($column['data'] . " LIKE '%" . $this->search['value'] . "%'");
+                }
             }
         }
         

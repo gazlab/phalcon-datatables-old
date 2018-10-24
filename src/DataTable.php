@@ -45,6 +45,9 @@ class DataTable extends \Phalcon\Mvc\User\Plugin
         foreach ($this->records as $record){
             foreach ($this->columns as $column){
                 $field = $column['data'];
+                if (strpos($field, '.')){
+                    list($field, $column) = explode('.', $field);
+                }
                 $columns[$field] = $record->$field;
             }
 
